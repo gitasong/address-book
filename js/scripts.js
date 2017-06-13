@@ -20,16 +20,6 @@ Address.prototype.fullAddress = function() {
   return "(" + this.kind + ") " + this.street + ", " + this.city + ", " + this.state;
 };
 
-function resetFields() {
-  // resets form fields with empty string to clear them
-  $("input#new-first-name").val("");
-  $("input#new-last-name").val("");
-  $("input.new-street").val("");
-  $("input.new-city").val("");
-  $("input.new-state").val("");
-  $("input.new-kind").val("");
-};
-
 //user interface logic
 $(document).ready(function() {
   $("#add-address").click(function() {
@@ -80,6 +70,29 @@ $(document).ready(function() {
     // appends each new contact's full name to the Contacts list below the form fields
     $("ul#contacts").append("<li><span class='contact'>" + newContact.fullName() + "</span></li>");
 
+    // displays contact details in show-contact panel when hover over newContact.fullName
+    $(".contact").mouseenter(function() {
+      $("#show-contact").show();
+      $("#show-contact h2").text(newContact.firstName);
+      $(".first-name").text(newContact.firstName);
+      $(".last-name").text(newContact.lastName);
+      $("ul#addresses").text("");
+      newContact.addresses.forEach(function(address) {
+        $("ul#addresses").append("<li>" + address.fullAddress() + "</li>");
+      });
+    });
+
+    $(".contact").mouseleave(function() {
+      $("#show-contact").hide();
+      $("#show-contact h2").text("");
+      $(".first-name").text("");
+      $(".last-name").text("");
+      $("ul#addresses").text("");
+      newContact.addresses.forEach(function(address) {
+        $("ul#addresses").append("");
+      });
+    });
+
     // function enabling us to click on contact in Contacts list, and the fly-out panel to the right opens up with each contact's info
     $(".contact").last().click(function() {
       $("#show-contact").show();
@@ -95,3 +108,13 @@ $(document).ready(function() {
     resetFields();
   });
 });
+
+function resetFields() {
+  // resets form fields with empty string to clear them
+  $("input#new-first-name").val("");
+  $("input#new-last-name").val("");
+  $("input.new-street").val("");
+  $("input.new-city").val("");
+  $("input.new-state").val("");
+  $("input.new-kind").val("");
+};

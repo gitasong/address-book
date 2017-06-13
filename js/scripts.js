@@ -34,22 +34,22 @@ function resetFields() {
 $(document).ready(function() {
   $("#add-address").click(function() {
     // dynamically writes new address panel below existing one when "Add Address" button is clicked
-    $("#new-addresses").append('<div class="new-address">' +
-                                 '<div class="form-group">' +
-                                   '<label for="new-street">Street</label>' +
-                                   '<input type="text" class="form-control new-street">' +
+    $("#new-addresses").append('<div class="new-address remove">' +
+                                 '<div class="form-group remove">' +
+                                   '<label for="new-street" class="remove">Street</label>' +
+                                   '<input type="text" class="form-control new-street remove">' +
                                  '</div>' +
-                                 '<div class="form-group">' +
-                                   '<label for="new-city">City</label>' +
-                                   '<input type="text" class="form-control new-city">' +
+                                 '<div class="form-group remove">' +
+                                   '<label for="new-city" class="remove">City</label>' +
+                                   '<input type="text" class="form-control new-city remove">' +
                                  '</div>' +
-                                 '<div class="form-group">' +
-                                   '<label for="new-state">State</label>' +
-                                   '<input type="text" class="form-control new-state">' +
+                                 '<div class="form-group remove">' +
+                                   '<label for="new-state" class="remove">State</label>' +
+                                   '<input type="text" class="form-control new-state remove">' +
                                  '</div>' +
-                                 '<div class="form-group">' +
-                                   '<label for="new-kind">Address Type (home, school, etc.)</label>' +
-                                   '<input type="text" class="form-control new-kind">' +
+                                 '<div class="form-group remove">' +
+                                   '<label for="new-kind" class="remove">Address Type (home, school, etc.)</label>' +
+                                   '<input type="text" class="form-control new-kind remove">' +
                                  '</div>' +
                                '</div>');
   });
@@ -74,6 +74,8 @@ $(document).ready(function() {
       var newAddress = new Address(inputtedStreet, inputtedCity, inputtedState, inputtedKind);
       newContact.addresses.push(newAddress);
     });
+
+    $("#new-addresses").find(".remove").remove();
 
     // appends each new contact's full name to the Contacts list below the form fields
     $("ul#contacts").append("<li><span class='contact'>" + newContact.fullName() + "</span></li>");
